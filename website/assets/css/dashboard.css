@@ -1,0 +1,18 @@
+/* dashboard.css */
+.container{max-width:1100px;margin:0 auto;padding:1rem}
+.dashboard-container{display:grid;grid-template-columns:280px 1fr;gap:1.5rem;padding:2rem 0}
+.dashboard-side .card{padding:1rem;border-radius:12px;background:#fff;box-shadow:0 8px 20px rgba(0,0,0,0.04)}
+.avatar{width:64px;border-radius:8px;margin-bottom:0.5rem}
+.profile-summary h3{margin:0;font-size:1.1rem}
+.profile-summary p{color:#6b7280;margin:0.4rem 0 1rem}
+.side-nav{display:flex;flex-direction:column;gap:0.4rem}
+.side-nav a{padding:0.5rem;border-radius:8px;text-decoration:none;color:#111827}
+.side-nav a.active{background:#f8fafc}
+.dashboard-main h2{margin:0 0 1rem}
+.stats-grid{display:flex;gap:1rem;margin-bottom:1rem}
+.stat{flex:1;padding:1rem;border-radius:12px;background:#fff;box-shadow:0 8px 20px rgba(0,0,0,0.04);text-align:center}
+.stat h4{margin:0;color:#6b7280}
+.stat p{font-size:1.6rem;margin:0.6rem 0 0}
+.recent-orders{margin-top:1rem;padding:1rem;border-radius:12px;background:#fff;box-shadow:0 8px 20px rgba(0,0,0,0.04)}
+.muted{color:#6b7280}
+@media (max-width:900px){.dashboard-container{grid-template-columns:1fr;}}

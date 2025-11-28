@@ -1,0 +1,67 @@
+:root {
+  --brand: #ff6b00;
+  --bg: #f6f7f9;
+  --text: #111827;
+  --muted: #6b7280;
+  --card: #ffffff;
+  --radius: 10px;
+  --shadow: 0 6px 18px rgba(20,20,30,0.06);
+}
+
+body.login-page {
+  background: var(--bg);
+  font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  color: #111827;
+  margin: 0;
+  -webkit-font-smoothing:antialiased;
+}
+
+.site-header.login-header {
+  background: transparent;
+  padding: 1rem 1.25rem;
+  border-bottom: 0;
+}
+
+.logo-img { height: 38px; vertical-align: middle; margin-right: 8px; }
+
+.login-main { display: flex; align-items: center; justify-content: center; min-height: calc(100vh - 170px); padding: 2rem; }
+.login-card {
+  width: 100%;
+  max-width: 480px;
+  background: var(--card);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 2rem;
+  box-sizing: border-box;
+}
+.login-card h1 { margin: 0 0 1rem 0; font-size: 1.4rem; }
+.login-card label { display:block; font-weight:600; margin: 0.6rem 0 0.25rem; color:#111827; }
+.login-card input[type="text"],
+.login-card input[type="password"] {
+  width:100%;
+  padding:0.8rem 0.9rem;
+  border-radius:8px;
+  border:1px solid #e6e9ef;
+  background:#fff;
+  box-sizing:border-box;
+  font-size:0.98rem;
+}
+.pw-wrap { position: relative; }
+.toggle-pw {
+  position:absolute; right:8px; top:50%; transform: translateY(-50%);
+  background:none; border:none; cursor:pointer; padding:4px 8px; border-radius:6px;
+  font-weight:600; color:var(--muted);
+}
+.form-row.horizontal { display:flex; align-items:center; justify-content:space-between; gap:1rem; margin:0.6rem 0 1rem; }
+.checkbox-label { display:flex; align-items:center; gap:0.5rem; font-weight:500; color:var(--muted); }
+.btn { display:inline-block; padding:0.75rem 1rem; border-radius:8px; border:0; cursor:pointer; font-weight:700; }
+.btn.full { width:100%; }
+.btn.primary { background:var(--brand); color:#fff; box-shadow: 0 6px 0 rgba(0,0,0,0.08); }
+.signup-cta { text-align:center; margin-top:1rem; color:var(--muted); font-size:0.95rem; }
+.signup-cta a { color:var(--brand); text-decoration:none; font-weight:600; }
+.form-message { margin-top:1rem; border-radius:6px; }
+.site-footer.login-footer { text-align:center; padding:1.5rem 0; color:var(--muted); font-size:0.95rem; }
+@media (max-width:600px){
+  .login-card { padding:1.2rem; border-radius:8px; }
+  .login-main { padding: 1rem; min-height: calc(100vh - 150px); }
+}

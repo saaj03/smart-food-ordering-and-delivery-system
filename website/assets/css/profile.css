@@ -1,0 +1,9 @@
+/* profile.css */
+.container{max-width:1100px;margin:0 auto;padding:1rem}
+.profile-page h2{margin-top:1rem}
+.profile-card{padding:1rem;border-radius:12px;background:#fff;box-shadow:0 8px 20px rgba(0,0,0,0.04);max-width:720px}
+.profile-card label{display:block;margin-top:0.6rem;font-weight:600}
+.profile-card input,.profile-card textarea{width:100%;padding:0.8rem;border-radius:8px;border:1px solid #e6e9ef;margin-top:0.25rem}
+.btn{padding:0.6rem 1rem;border-radius:8px;border:0;cursor:pointer}
+.btn.primary{background:var(--brand);color:#fff;font-weight:700}
+.muted{color:#6b7280}

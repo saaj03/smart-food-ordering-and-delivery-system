@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Contact — Smart Food</title>
+
+  <link rel="icon" href="../images/logo.png">
+  <link rel="stylesheet" href="../css/contact.css">
+  <link rel="stylesheet" href="../css/background.css"> <!-- optional: keep global styles -->
+  <script src="../js/main.js" defer></script>
+</head>
+<body class="contact-page">
+
+  <header class="site-header">
+    <div class="site-bar container">
+      <a href="home.html" class="logo">
+        <img src="../images/logo.png" alt="Smart Food logo" class="logo-img">
+        <span>Smart<span class="brand-color">Food</span></span>
+      </a>
+
+      <nav class="main-nav">
+        <a href="home.html#home">Home</a>
+        <a href="home.html#services">Services</a>
+        <a href="home.html#about">About</a>
+        <a href="contact.html" class="active">Contact</a>
+      </nav>
+
+      <button class="hamburger" aria-label="Menu" id="hamburgerBtn2">☰</button>
+    </div>
+  </header>
+
+  <main class="contact-container">
+    <div class="contact-card">
+      <h2>Contact Us</h2>
+      <form method="post" action="#" novalidate>
+        <label for="name">Name</label>
+        <input type="text" id="name" name="name" placeholder="Your name" required>
+
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" placeholder="you@example.com" required>
+
+        <label for="phone">Phone</label>
+        <input type="tel" id="phone" name="phone" placeholder="+977-98XXXXXXXX">
+
+        <label for="message">Message</label>
+        <textarea id="message" name="message" rows="6" placeholder="How can we help?"></textarea>
+
+        <button type="submit">Send Message</button>
+      </form>
+    </div>
+
+    <aside class="contact-info">
+      <h3>Contact Info</h3>
+      <p><strong>Email:</strong> <a href="mailto:hello@smartfood.com">hello@smartfood.com</a></p>
+      <p><strong>Phone:</strong> +977-1-XXXXXXX</p>
+      <p><strong>Address:</strong> Kathmandu, Nepal</p>
+    </aside>
+  </main>
+
+  <footer class="site-footer">
+    <p>© <span id="year"></span> Smart Food — All rights reserved.</p>
+  </footer>
+
+</body>
+</html>

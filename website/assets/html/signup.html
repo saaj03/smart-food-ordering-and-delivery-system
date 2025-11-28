@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Signup — Smart Food</title>
+
+  <link rel="icon" href="../images/logo.png">
+
+  <!-- Signup CSS -->
+  <link rel="stylesheet" href="../css/signup.css">
+  <!-- Optional global background styles -->
+  <link rel="stylesheet" href="../css/background.css">
+
+  <script src="../js/main.js" defer></script>
+</head>
+
+<body class="signup-page">
+
+  <!-- HEADER -->
+  <header class="site-header login-header">
+    <div class="site-bar container">
+      <a href="home.html" class="logo">
+        <img src="../images/logo.png" alt="Smart Food logo" class="logo-img">
+        <span>Smart<span class="brand-color">Food</span></span>
+      </a>
+
+      <nav class="main-nav">
+        <a href="home.html">Home</a>
+        <a href="login.html">Login</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- SIGNUP MAIN SECTION -->
+  <main class="signup-main container">
+    <section class="signup-card">
+      <h1>Create Your Account</h1>
+
+      <form id="signupForm" novalidate>
+
+        <label for="fullname">Full Name</label>
+        <input id="fullname" name="fullname" type="text" placeholder="Your full name" required>
+
+        <label for="email">Email</label>
+        <input id="email" name="email" type="email" placeholder="you@example.com" required>
+
+        <label for="phone">Phone</label>
+        <input id="phone" name="phone" type="tel" placeholder="+977-98XXXXXXXX" required>
+
+        <label for="password">Password</label>
+        <input id="password" name="password" type="password" placeholder="Create a strong password" minlength="6" required>
+
+        <label for="confirmPassword">Confirm Password</label>
+        <input id="confirmPassword" name="confirmPassword" type="password" placeholder="Re-enter your password" minlength="6" required>
+
+        <button type="submit" class="btn primary full">Create Account</button>
+
+        <p class="already">
+          Already have an account?
+          <a href="login.html">Login</a>
+        </p>
+
+        <div id="signupMessage" class="msg-box" hidden></div>
+      </form>
+
+    </section>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="site-footer login-footer">
+    <p>© <span id="year"></span> Smart Food — All rights reserved.</p>
+  </footer>
+
+  <!-- SIGNUP SCRIPT -->
+  <script>
+    (function(){
+      const form = document.getElementById('signupForm');
+      const messageBox = document.getElementById('signupMessage');
+
+      form.addEventListener('submit', function(e){
+        e.preventDefault();
+
+        const name = form.fullname.value.trim();
+        const email = form.email.value.trim();
+        const phone = form.phone.value.trim();
+        const pass = form.password.value;
+        const confirm = form.confirmPassword.value;
+
+        // Clear old message
+        messageBox.hidden = true;
+
+        if (!name || !email || !phone || !pass || !confirm) {
+          showError("Please fill out all fields.");
+          return;
+        }
+
+        if (pass !== confirm) {
+          showError("Passwords do not match.");
+          return;
+        }
+
+        if (pass.length < 6) {
+          showError("Password must be at least 6 characters.");
+          return;
+        }
+
+        showSuccess("Account created successfully! Redirecting...");
+
+        setTimeout(()=> {
+          window.location.href = "login.html";
+        }, 1000);
+      });
+
+      function showError(msg){
+        messageBox.hidden = false;
+        messageBox.style.background = "#f8d7da";
+        messageBox.style.color = "#842029";
+        messageBox.textContent = msg;
+      }
+
+      function showSuccess(msg){
+        messageBox.hidden = false;
+        messageBox.style.background = "#d1e7dd";
+        messageBox.style.color = "#0f5132";
+        messageBox.textContent = msg;
+      }
+
+      document.getElementById("year").textContent = new Date().getFullYear();
+    })();
+  </script>
+
+</body>
+</html>

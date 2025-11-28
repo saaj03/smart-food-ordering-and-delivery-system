@@ -1,0 +1,13 @@
+/* menu.css */
+.container{max-width:1100px;margin:0 auto;padding:1rem}
+.menu-grid{display:grid;grid-template-columns:1fr 320px;gap:1rem}
+.menu-list .card{margin-bottom:1rem}
+.menu-item{display:flex;gap:1rem;align-items:center;padding:0.8rem;border-radius:10px;background:#fff;box-shadow:0 6px 18px rgba(0,0,0,0.04)}
+.menu-item img{width:88px;height:88px;border-radius:8px;object-fit:cover}
+.menu-item .meta{flex:1}
+.menu-item .meta h4{margin:0 0 0.4rem}
+.menu-item .meta p{color:#6b7280;margin:0 0.5rem 0}
+.cart{padding:1rem;border-radius:12px;background:#fff;box-shadow:0 8px 20px rgba(0,0,0,0.04)}
+.cart-total{margin-top:1rem}
+.btn.full{width:100%}
+@media (max-width:900px){.menu-grid{grid-template-columns:1fr}}
