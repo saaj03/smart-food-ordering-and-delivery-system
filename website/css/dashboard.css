@@ -1,18 +1,150 @@
-/* dashboard.css */
-.container{max-width:1100px;margin:0 auto;padding:1rem}
-.dashboard-container{display:grid;grid-template-columns:280px 1fr;gap:1.5rem;padding:2rem 0}
-.dashboard-side .card{padding:1rem;border-radius:12px;background:#fff;box-shadow:0 8px 20px rgba(0,0,0,0.04)}
-.avatar{width:64px;border-radius:8px;margin-bottom:0.5rem}
-.profile-summary h3{margin:0;font-size:1.1rem}
-.profile-summary p{color:#6b7280;margin:0.4rem 0 1rem}
-.side-nav{display:flex;flex-direction:column;gap:0.4rem}
-.side-nav a{padding:0.5rem;border-radius:8px;text-decoration:none;color:#111827}
-.side-nav a.active{background:#f8fafc}
-.dashboard-main h2{margin:0 0 1rem}
-.stats-grid{display:flex;gap:1rem;margin-bottom:1rem}
-.stat{flex:1;padding:1rem;border-radius:12px;background:#fff;box-shadow:0 8px 20px rgba(0,0,0,0.04);text-align:center}
-.stat h4{margin:0;color:#6b7280}
-.stat p{font-size:1.6rem;margin:0.6rem 0 0}
-.recent-orders{margin-top:1rem;padding:1rem;border-radius:12px;background:#fff;box-shadow:0 8px 20px rgba(0,0,0,0.04)}
-.muted{color:#6b7280}
-@media (max-width:900px){.dashboard-container{grid-template-columns:1fr;}}
+/* DASHBOARD PAGE — CLEANED, MODERN, FULLY RESPONSIVE */
+
+:root {
+  --brand: #ff6b00;
+  --text: #111827;
+  --muted: #6b7280;
+  --card: #ffffff;
+  --radius: 12px;
+  --border: #e6e9ef;
+  --shadow: 0 8px 20px rgba(0,0,0,0.05);
+}
+
+body.app-page {
+  margin: 0;
+  font-family: Inter, system-ui, sans-serif;
+  background: #f7f8fb;
+  color: var(--text);
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 1rem;
+}
+
+/* DASHBOARD LAYOUT */
+.dashboard-container {
+  display: grid;
+  grid-template-columns: 260px 1fr;
+  gap: 1.5rem;
+  margin-top: 1.5rem;
+}
+
+/* SIDEBAR */
+.dashboard-side .profile-summary {
+  background: var(--card);
+  padding: 1.2rem;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  text-align: center;
+}
+
+.profile-summary .avatar {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 0.8rem;
+}
+
+.profile-summary h3 {
+  margin: 0.4rem 0 0;
+}
+
+.profile-summary p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+
+.side-nav {
+  display: flex;
+  flex-direction: column;
+  margin-top: 1.2rem;
+}
+
+.side-nav a {
+  padding: 0.7rem;
+  text-decoration: none;
+  font-weight: 600;
+  border-radius: 8px;
+  color: var(--text);
+  transition: 0.15s ease;
+}
+
+.side-nav a:hover {
+  background: #f3f4f6;
+}
+
+.side-nav a.active {
+  background: var(--brand);
+  color: #fff;
+}
+
+/* DASHBOARD MAIN */
+.dashboard-main h2 {
+  margin-top: 0;
+  margin-bottom: 1rem;
+  font-size: 1.6rem;
+}
+
+/* STATS GRID */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.stat.card {
+  background: var(--card);
+  padding: 1.2rem;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  text-align: center;
+}
+
+.stat.card h4 {
+  margin: 0;
+  color: var(--muted);
+  font-size: 1rem;
+}
+
+.stat.card p {
+  margin: 0.4rem 0 0;
+  font-size: 1.4rem;
+  font-weight: bold;
+}
+
+/* RECENT ORDERS */
+.recent-orders {
+  background: var(--card);
+  padding: 1.2rem;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+}
+
+.recent-orders h3 {
+  margin-top: 0;
+  margin-bottom: 1rem;
+}
+
+.recent-orders p.muted {
+  color: var(--muted);
+}
+
+/* RESPONSIVE */
+@media (max-width: 900px) {
+  .dashboard-container {
+    grid-template-columns: 1fr;
+  }
+
+  .dashboard-side {
+    order: 2;
+  }
+
+  .dashboard-main {
+    order: 1;
+  }
+}

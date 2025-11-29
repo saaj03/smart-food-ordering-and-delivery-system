@@ -1,105 +1,235 @@
-// app-pages.js — small demo data + cart + basic behaviors (client-side)
-document.addEventListener('DOMContentLoaded', function(){
-  // set year if not already
-  var yEl = document.getElementById('year'); if (yEl) yEl.textContent = new Date().getFullYear();
 
-  // Simple cart stored in memory for demo
-  window._cart = window._cart || { items: [], total:0 };
-  function updateCartUI(){
-    var count = window._cart.items.reduce((s,i)=>s+i.qty,0);
-    var total = window._cart.items.reduce((s,i)=>s.qty*i.price,s);
-    window._cart.total = total;
-    var cEl = document.getElementById('cartCount'); if (cEl) cEl.textContent = count;
-    var totalEl = document.getElementById('cartTotal'); if (totalEl) totalEl.textContent = total;
-    var cartItems = document.getElementById('cartItems');
-    if (cartItems){
-      if (window._cart.items.length===0) cartItems.innerHTML = '<p class="muted">No items yet.</p>';
-      else cartItems.innerHTML = window._cart.items.map(it=>`
-        <div style="display:flex;justify-content:space-between;margin:0.4rem 0">
-          <div>${it.name} x ${it.qty}</div><div>NPR ${it.qty*it.price}</div>
-        </div>
-      `).join('') + '<button id="clearCart" class="btn" style="margin-top:0.6rem">Clear</button>';
-      var clear = document.getElementById('clearCart'); if (clear) clear.addEventListener('click', function(){ window._cart.items=[]; updateCartUI(); });
-    }
-    var checkout = document.getElementById('checkoutBtn'); if (checkout) checkout.disabled = window._cart.items.length===0;
-  }
-  updateCartUI();
 
-  // Inject sample restaurants
-  var restaurantsList = document.getElementById('restaurantsList');
-  if (restaurantsList){
-    var sample = [
-      {id:1,name:'Spice Villa',cuisine:'Asian',desc:'Tasty curries and noodles',rating:4.5},
-      {id:2,name:'Burger House',cuisine:'Fast Food',desc:'Grilled burgers & fries',rating:4.2},
-      {id:3,name:'Pizza Corner',cuisine:'Italian',desc:'Wood-fired pizzas',rating:4.6}
-    ];
-    restaurantsList.innerHTML = sample.map(r=>`
-      <div class="card">
-        <h3>${r.name}</h3>
-        <p class="muted">${r.cuisine} • ${r.desc}</p>
-        <div class="actions"><a class="btn small" href="menu.html?rid=${r.id}">View Menu</a><button class="btn small" data-id="${r.id}" onclick="window.location.href='menu.html?rid=${r.id}'">Order</button></div>
-      </div>
-    `).join('');
-  }
+import { showMessage, clearMessage, validateEmail, validatePhone } from "./main.js";
 
-  // Inject sample menu items if on menu page
-  var menuList = document.getElementById('menuList');
-  if (menuList){
-    // sample menu
-    var items = [
-      {id:101,name:'Veg Burger',desc:'Veg patty, lettuce, tomato',price:220,img:'../images/back1.jpg'},
-      {id:102,name:'Spicy Paneer',desc:'Paneer in tomato gravy',price:280,img:'../images/back1.jpg'},
-      {id:103,name:'Margherita Pizza',desc:'Tomato, basil, cheese',price:450,img:'../images/back1.jpg'}
-    ];
-    menuList.innerHTML = items.map(it=>`
-      <div class="menu-item">
-        <img src="${it.img}" alt="${it.name}">
-        <div class="meta">
-          <h4>${it.name} — NPR ${it.price}</h4>
-          <p class="muted">${it.desc}</p>
-        </div>
-        <div>
-          <input type="number" value="1" min="1" style="width:64px;margin-bottom:0.4rem" id="qty-${it.id}">
-          <button class="btn small primary" data-id="${it.id}" data-name="${it.name}" data-price="${it.price}">Add</button>
-        </div>
-      </div>
-    `).join('');
-
-    // add handlers
-    menuList.querySelectorAll('button[data-id]').forEach(btn=>{
-      btn.addEventListener('click', function(){
-        var id = this.dataset.id, name=this.dataset.name, price=Number(this.dataset.price);
-        var qtyEl = document.getElementById('qty-'+id);
-        var qty = qtyEl ? Number(qtyEl.value) : 1;
-        var found = window._cart.items.find(x=>x.id==id);
-        if (found) found.qty += qty; else window._cart.items.push({id,name,price,qty});
-        updateCartUI();
-      });
-    });
-  }
-
-  // simple forgot form
-  var forgot = document.getElementById('forgotForm');
-  if (forgot){
-    forgot.addEventListener('submit', function(e){
-      e.preventDefault();
-      var msg = document.getElementById('forgotMsg');
-      msg.textContent = 'If this email exists we sent a reset link (demo).';
-    });
-  }
-
-  // profile save (demo)
-  var saveProfile = document.getElementById('saveProfile');
-  if (saveProfile){
-    saveProfile.addEventListener('click', function(){
-      document.getElementById('profileMsg').textContent = 'Profile saved (demo).';
-    });
-  }
-
-  // fill dashboard user info from localStorage (demo)
-  var user = JSON.parse(localStorage.getItem('sf_user') || '{}');
-  if (user && user.name){
-    var elN = document.getElementById('userName'); if (elN) elN.textContent = user.name;
-    var elE = document.getElementById('userEmail'); if (elE) elE.textContent = user.email;
-  }
+// Wait for DOM
+window.addEventListener("DOMContentLoaded", () => {
+  handleLoginPage();
+  handleSignupPage();
+  handleProfilePage();
+  handleRestaurantsPage();
+  handleMenuPage();
+  handleDashboardPage();
 });
+
+
+function handleLoginPage() {
+  const form = document.getElementById("loginForm");
+  if (!form) return;
+
+  const msg = document.getElementById("formMessage");
+
+  form.addEventListener("submit", (e) => {
+    e.preventDefault();
+    clearMessage(msg);
+
+    const id = form.identifier.value.trim();
+    const pass = form.password.value.trim();
+
+    if (!id || !pass) {
+      showMessage(msg, "Please fill all fields.", "error");
+      return;
+    }
+
+    if (!validateEmail(id) && !validatePhone(id)) {
+      showMessage(msg, "Enter a valid email or phone.", "error");
+      return;
+    }
+
+    if (pass.length < 6) {
+      showMessage(msg, "Password must be at least 6 characters.", "error");
+      return;
+    }
+
+    // Simulated login
+    showMessage(msg, "Login successful! Redirecting...", "success");
+    setTimeout(() => (window.location.href = "dashboard.html"), 1000);
+  });
+}
+
+function handleSignupPage() {
+  const form = document.getElementById("signupForm");
+  if (!form) return;
+
+  const msg = document.getElementById("signupMessage");
+
+  form.addEventListener("submit", (e) => {
+    e.preventDefault();
+    clearMessage(msg);
+
+    const name = form.fullname.value.trim();
+    const email = form.email.value.trim();
+    const phone = form.phone.value.trim();
+    const pass = form.password.value;
+    const confirm = form.confirmPassword.value;
+
+    if (!name || !email || !phone || !pass || !confirm) {
+      showMessage(msg, "Please fill all fields.", "error");
+      return;
+    }
+
+    if (!validateEmail(email)) {
+      showMessage(msg, "Enter a valid email.", "error");
+      return;
+    }
+
+    if (!validatePhone(phone)) {
+      showMessage(msg, "Enter a valid phone number.", "error");
+      return;
+    }
+
+    if (pass !== confirm) {
+      showMessage(msg, "Passwords do not match.", "error");
+      return;
+    }
+
+    if (pass.length < 6) {
+      showMessage(msg, "Password must be at least 6 characters.", "error");
+      return;
+    }
+
+    showMessage(msg, "Account created successfully! Redirecting...", "success");
+    setTimeout(() => (window.location.href = "login.html"), 1000);
+  });
+}
+
+function handleProfilePage() {
+  const form = document.getElementById("profileForm");
+  if (!form) return;
+
+  const msg = document.getElementById("profileMsg");
+
+  document.getElementById("saveProfile").onclick = () => {
+    clearMessage(msg);
+
+    const name = form.fullname.value.trim();
+    const email = form.email.value.trim();
+    const phone = form.phone.value.trim();
+    const address = form.address.value.trim();
+
+    if (!name || !email || !phone || !address) {
+      showMessage(msg, "Please fill out all fields.", "error");
+      return;
+    }
+
+    if (!validateEmail(email)) {
+      showMessage(msg, "Invalid email.", "error");
+      return;
+    }
+
+    if (!validatePhone(phone)) {
+      showMessage(msg, "Invalid phone.", "error");
+      return;
+    }
+
+    showMessage(msg, "Profile saved successfully!", "success");
+  };
+
+  document.getElementById("cancelProfile").onclick = () => {
+    form.reset();
+    clearMessage(msg);
+  };
+}
+
+
+function handleRestaurantsPage() {
+  const list = document.getElementById("restaurantsList");
+  if (!list) return;
+
+  const restaurants = [
+    {
+      name: "Pizza House",
+      cuisine: "Italian",
+      img: "../assets/images/pizza.jpg",
+      desc: "Hot wood-fired pizzas & pasta."
+    },
+    {
+      name: "Mo:Mo Legend",
+      cuisine: "Asian",
+      img: "../assets/images/momo.jpg",
+      desc: "Nepal's favorite steamed & fried MoMo."
+    },
+    {
+      name: "Burger Hub",
+      cuisine: "Fast Food",
+      img: "../assets/images/burger.jpg",
+      desc: "Juicy grilled burgers with fries."
+    }
+  ];
+
+  list.innerHTML = restaurants
+    .map(
+      (r) => `
+      <div class="card">
+        <img src="${r.img}" alt="${r.name}" style="width:100%;border-radius:10px;height:160px;object-fit:cover;">
+        <h3>${r.name}</h3>
+        <p>${r.desc}</p>
+        <div class="actions">
+          <button class="btn primary small" onclick="location.href='menu.html?res=${r.name}'">View Menu</button>
+        </div>
+      </div>`
+    )
+    .join("");
+}
+
+function handleMenuPage() {
+  const menuList = document.getElementById("menuList");
+  if (!menuList) return;
+
+  const cartItems = document.getElementById("cartItems");
+  const cartTotal = document.getElementById("cartTotal");
+  const checkoutBtn = document.getElementById("checkoutBtn");
+
+  let cart = [];
+
+  const menu = [
+    { name: "Veg Pizza", price: 450, img: "../assets/images/pizza1.jpg" },
+    { name: "Chicken Burger", price: 380, img: "../assets/images/burger.jpg" },
+    { name: "Fried Mo:Mo", price: 250, img: "../assets/images/momo.jpg" }
+  ];
+
+  menuList.innerHTML = menu
+    .map(
+      (m, i) => `
+      <div class="menu-item card">
+        <img src="${m.img}" alt="${m.name}">
+        <div class="meta">
+          <h4>${m.name}</h4>
+          <p>NPR ${m.price}</p>
+          <button class="btn primary" onclick="addToCart(${i})">Add</button>
+        </div>
+      </div>`
+    )
+    .join("");
+
+  window.addToCart = (i) => {
+    cart.push(menu[i]);
+    renderCart();
+  };
+
+  function renderCart() {
+    if (cart.length === 0) {
+      cartItems.textContent = "No items yet.";
+      checkoutBtn.disabled = true;
+      cartTotal.textContent = "0";
+      return;
+    }
+
+    checkoutBtn.disabled = false;
+    cartItems.innerHTML = cart
+      .map((c) => `<p>${c.name} — NPR ${c.price}</p>`)
+      .join("");
+
+    cartTotal.textContent = cart.reduce((t, i) => t + i.price, 0);
+  }
+}
+
+
+function handleDashboardPage() {
+  const nameEl = document.getElementById("userName");
+  const emailEl = document.getElementById("userEmail");
+  if (!nameEl || !emailEl) return;
+
+  nameEl.textContent = "Hello, User";
+  emailEl.textContent = "user@example.com";
+}

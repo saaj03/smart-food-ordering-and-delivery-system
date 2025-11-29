@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Menu — Smart Food</title>
+
+  <!-- Favicon -->
+  <link rel="icon" href="/assets/images/logo.png">
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="/css/menu.css">
+  <link rel="stylesheet" href="/css/background.css">
+
+  <!-- JS -->
+  <script src="/js/main.js" defer></script>
+  <script src="/js/app-pages.js" defer></script>
+</head>
+
+<body>
+
+  <!-- NAVBAR -->
+  <div id="navbar"></div>
+
+  <!-- HEADER -->
+  <header class="site-header">
+    <div class="site-bar container">
+      <a href="/index.html" class="logo">
+        <img src="/assets/images/logo.png" alt="Smart Food logo">
+        <span>Smart<span class="brand-color">Food</span></span>
+      </a>
+    </div>
+  </header>
+
+  <!-- MAIN SECTION -->
+  <main class="container" style="padding:2rem 0">
+    <h2 id="menuTitle">Restaurant Menu</h2>
+
+    <div class="menu-grid">
+
+      <!-- MENU ITEMS LIST -->
+      <div class="menu-list" id="menuList">
+        <!-- Menu items injected via app-pages.js -->
+      </div>
+
+      <!-- CART SIDEBAR -->
+      <aside class="cart card">
+        <h3>Your Order</h3>
+
+        <div id="cartItems">No items yet.</div>
+
+        <div class="cart-total">
+          <strong>Total:</strong> NPR <span id="cartTotal">0</span>
+        </div>
+
+        <button id="checkoutBtn" class="btn primary full" disabled>Checkout</button>
+      </aside>
+    </div>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <p>© <span id="year"></span> Smart Food — All rights reserved.</p>
+  </footer>
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+
+</body>
+</html>

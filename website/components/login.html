@@ -5,27 +5,33 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Login — Smart Food</title>
 
-  <link rel="icon" href="../images/logo.png">
-  <link rel="stylesheet" href="../css/login.css">
-  <link rel="stylesheet" href="../css/background.css">
-  <script src="../js/main.js" defer></script>
+  <!-- Favicon -->
+  <link rel="icon" href="/assets/images/logo.png">
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="/css/login.css">
+  <link rel="stylesheet" href="/css/background.css">
+
+  <!-- JS -->
+  <script src="/js/main.js" defer></script>
+  <script src="/js/app-pages.js" defer></script>
 </head>
 <body class="login-page">
 
+  <!-- NAVBAR -->
+  <div id="navbar"></div>
+
+  <!-- HEADER -->
   <header class="site-header login-header">
     <div class="site-bar container">
-      <a href="home.html" class="logo">
-        <img src="../images/logo.png" alt="Smart Food logo" class="logo-img">
+      <a href="/index.html" class="logo">
+        <img src="/assets/images/logo.png" alt="Smart Food logo" class="logo-img">
         <span>Smart<span class="brand-color">Food</span></span>
       </a>
-
-      <nav class="main-nav">
-        <a href="home.html">Home</a>
-        <a href="../html/contact.html">Contact</a>
-      </nav>
     </div>
   </header>
 
+  <!-- MAIN LOGIN SECTION -->
   <main class="login-main container">
     <section class="login-card" aria-labelledby="loginTitle">
       <h1 id="loginTitle">Sign in to Smart Food</h1>
@@ -42,23 +48,38 @@
 
         <div class="form-row horizontal">
           <label class="checkbox-label">
-            <input type="checkbox" id="remember" name="remember">
-            Remember me
+            <input type="checkbox" id="remember" name="remember"> Remember me
           </label>
-          <a class="forgot" href="contact.html">Forgot?</a>
+          <a class="forgot" href="/html/forget.html">Forgot?</a>
         </div>
 
         <button type="submit" class="btn primary full">Sign In</button>
-        <p class="signup-cta">Don't have an account? <a href="signup.html">Sign up</a></p>
+        <p class="signup-cta">Don't have an account? <a href="/html/signup.html">Sign up</a></p>
 
         <div id="formMessage" aria-live="polite" class="form-message" hidden></div>
       </form>
     </section>
   </main>
 
-  <footer class="site-footer">
+  <!-- FOOTER -->
+  <footer class="site-footer login-footer">
     <p>© <span id="year"></span> Smart Food — All rights reserved.</p>
   </footer>
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    // Password toggle
+    const toggleBtn = document.getElementById("togglePassword");
+    const pwField = document.getElementById("password");
+
+    if (toggleBtn && pwField) {
+      toggleBtn.addEventListener("click", () => {
+        pwField.type = pwField.type === "password" ? "text" : "password";
+        toggleBtn.textContent = pwField.type === "password" ? "Show" : "Hide";
+      });
+    }
+  </script>
 
 </body>
 </html>
